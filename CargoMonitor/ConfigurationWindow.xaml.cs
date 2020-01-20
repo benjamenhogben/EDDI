@@ -25,5 +25,10 @@ namespace EddiCargoMonitor
             // Update the cargo monitor's information
             cargoMonitor()?.writeInventory();
         }
+
+        private void CargoData_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }

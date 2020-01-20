@@ -9,7 +9,14 @@
              xmlns:utility="clr-namespace:Utilities;assembly=Utilities"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="800">
-    <DockPanel LastChildFill="True" Background="#FFE5E5E5" Margin="0,5">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/EDDIStyling;component/GlobalStyling.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <DockPanel LastChildFill="True" Margin="0,5">
         <TextBlock DockPanel.Dock="Top" TextWrapping="Wrap" Margin="5,0" Text="{x:Static resx:MaterialMonitor.p1}"/>
         <TextBlock DockPanel.Dock="Top" TextWrapping="Wrap" Margin ="5" Text="{x:Static resx:MaterialMonitor.p2}"/>
         <UniformGrid DockPanel.Dock="Bottom" Rows="1" Columns="2" Margin="240,5">
@@ -20,12 +27,12 @@
             <Button HorizontalAlignment="Center" Click="findEncoded" Content="{x:Static resx:MaterialMonitor.find_encoded_button}" />
             <Button HorizontalAlignment="Center" Click="findGuardian" Content="{x:Static resx:MaterialMonitor.find_guardian_button}" />
             <Button HorizontalAlignment="Center" Click="findHuman" Content="{x:Static resx:MaterialMonitor.find_human_button}" />
-            <Button HorizontalAlignment="Center" Click="findManufactured" Content="{x:Static resx:MaterialMonitor.find_manufactured_button}" />
+            <Button FontSize="11" HorizontalAlignment="Center" Click="findManufactured" Content="{x:Static resx:MaterialMonitor.find_manufactured_button}" />
             <Button HorizontalAlignment="Center" Click="findRaw" Content="{x:Static resx:MaterialMonitor.find_raw_button}" />
         </UniformGrid>
         <Grid DockPanel.Dock="Bottom" Margin="0,5" >
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="250" />
+                <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
@@ -41,7 +48,7 @@
                      VerticalContentAlignment="Center" Height="25" Width="60"/>
             <TextBlock Grid.Row="1" Grid.Column="2" Margin="10,0" TextWrapping="Wrap" Text="{x:Static resx:MaterialMonitor.p3}" VerticalAlignment="Center"/>
         </Grid>
-        <DataGrid Margin="0,5" AutoGenerateColumns="False" x:Name="materialsData" CanUserAddRows="false" CanUserDeleteRows="False" TargetUpdated="materialsUpdated">
+        <DataGrid AutoGenerateColumns="False" x:Name="materialsData" CanUserAddRows="false" CanUserDeleteRows="False" TargetUpdated="materialsUpdated">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="{x:Static resx:MaterialMonitor.name_header}" Width="*" IsReadOnly="True" Binding="{Binding Path=material}"></DataGridTextColumn>
                 <DataGridTextColumn Header="{x:Static resx:MaterialMonitor.type_header}" Width="100" IsReadOnly="True" Binding="{Binding Path=Category}"></DataGridTextColumn>
@@ -53,7 +60,7 @@
                         </Style>
                     </DataGridTextColumn.ElementStyle>
                 </utility:DataGridNumericColumn>
-                <utility:DataGridNumericColumn Header="{x:Static resx:MaterialMonitor.min_header}" Binding="{Binding Path=minimum, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, TargetNullValue={x:Static System:String.Empty}}">
+                <utility:DataGridNumericColumn Header="{x:Static resx:MaterialMonitor.min_header}" Width="80" Binding="{Binding Path=minimum, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, TargetNullValue={x:Static System:String.Empty}}">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="TextBlock">
                             <Setter Property="TextAlignment" Value="Right" />
@@ -61,7 +68,7 @@
                         </Style>
                     </DataGridTextColumn.ElementStyle>
                 </utility:DataGridNumericColumn>
-                <utility:DataGridNumericColumn Header="{x:Static resx:MaterialMonitor.desired_header}" Binding="{Binding Path=desired, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, TargetNullValue={x:Static System:String.Empty}}">
+                <utility:DataGridNumericColumn Header="{x:Static resx:MaterialMonitor.desired_header}" Width="50" Binding="{Binding Path=desired, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, TargetNullValue={x:Static System:String.Empty}}">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="TextBlock">
                             <Setter Property="TextAlignment" Value="Right" />
@@ -70,7 +77,7 @@
                     </DataGridTextColumn.ElementStyle>
 
                 </utility:DataGridNumericColumn>
-                <utility:DataGridNumericColumn Header="{x:Static resx:MaterialMonitor.max_header}" Binding="{Binding Path=maximum, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, TargetNullValue={x:Static System:String.Empty}}">
+                <utility:DataGridNumericColumn Header="{x:Static resx:MaterialMonitor.max_header}" Width="80" Binding="{Binding Path=maximum, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, TargetNullValue={x:Static System:String.Empty}}">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="TextBlock">
                             <Setter Property="TextAlignment" Value="Right" />

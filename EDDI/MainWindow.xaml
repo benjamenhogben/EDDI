@@ -10,248 +10,277 @@
         xmlns:local="clr-namespace:Eddi"
         xmlns:resx="clr-namespace:Eddi.Properties"
         mc:Ignorable="d"
-        Title="EDDI" ResizeMode="CanResizeWithGrip" Width="928" Height="600" MinWidth="928" MinHeight="600">
+        Title="EDDI" ResizeMode="CanResizeWithGrip" Width="940" Height="640" MinWidth="940" MinHeight="640">
     <Window.Resources>
-        <!-- Colors and simple brushes -->
-        <Color x:Key="DeepPurple" A="0xff" R="0x43" G="0x35" B="0x5d"/>
-        <SolidColorBrush x:Key="NeutralBackgroundBrush" Color="{x:Static SystemColors.ControlLightColor}"/>
-        <SolidColorBrush x:Key="DataGridLineBrush" Color="LightGray"/>
-        <!-- Gradients -->
-        <LinearGradientBrush x:Key="DockPanelBackgroundBrush" EndPoint="0.5,1.0" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0.0">
-            <GradientStop Color="Black" Offset="0.0"/>
-            <GradientStop Color="{StaticResource DeepPurple}" Offset="1.0"/>
-        </LinearGradientBrush>
-        <!-- Styles -->
-        <Style TargetType="DataGrid">
-            <Setter Property="AlternatingRowBackground" Value="AliceBlue"/>
-            <Setter Property="HorizontalGridLinesBrush" Value="{StaticResource DataGridLineBrush}"/>
-            <Setter Property="VerticalGridLinesBrush" Value="{StaticResource DataGridLineBrush}"/>
-        </Style>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/EDDIStyling;component/GlobalStyling.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Window.Resources>
-    <DockPanel LastChildFill="True" Background="{StaticResource DockPanelBackgroundBrush}">
-        <TabControl x:Name="tabControl" DockPanel.Dock="Top" TabStripPlacement="Left">
-            <TabControl.Resources>
-                <Style TargetType="TabItem">
-                    <Setter Property="MinWidth" Value="150" />
-                    <Setter Property="MinHeight" Value="30" />
-                </Style>
-            </TabControl.Resources>
-            <TabItem Header="EDDI">
-                <DockPanel LastChildFill="True" Background="{StaticResource NeutralBackgroundBrush}">
-                    <DockPanel LastChildFill="True" Background="{StaticResource NeutralBackgroundBrush}" DockPanel.Dock="Bottom" Margin="5">
-                        <TextBlock DockPanel.Dock="Left" VerticalAlignment="Center" Text="{x:Static resx:MainWindow.EDDI_status_label}"/>
-                        <TextBlock x:Name="versionText" VerticalAlignment="Center" DockPanel.Dock="Right"/>
-                        <Label Height="28" Margin="0,0,0,0" Name="Version" DockPanel.Dock="Right" VerticalAlignment="Center">
-                            <Hyperlink Click="ChangeLog_Click">
-                                <Run Text="{x:Static resx:MainWindow.version_hyperlink}" />
-                            </Hyperlink>
-                        </Label>
-                        <Button x:Name="upgradeButton" VerticalAlignment="Center" DockPanel.Dock="Left" Visibility="Collapsed" Margin="10,0,10,0" Foreground="Orange" Click="upgradeClicked" Content="{x:Static resx:MainWindow.upgrade_button}"></Button>
-                        <TextBlock x:Name="statusText" VerticalAlignment="Center" DockPanel.Dock="Left" Text="{x:Static resx:EddiResources.operational}"/>
-                    </DockPanel>
-                    <RichTextBox DockPanel.Dock="Top" Margin="5"  IsReadOnly="True" IsDocumentEnabled="True" Background="{StaticResource NeutralBackgroundBrush}" BorderThickness="0">
-                        <FlowDocument Background="{StaticResource NeutralBackgroundBrush}">
-                            <Paragraph>
-                                <Hyperlink Click="EDDIClicked">EDDI</Hyperlink>
-                                <Run Text="{x:Static resx:MainWindow.paragraph_0}" />
-                            </Paragraph>
-                            <Paragraph>
-                                <Run Text="{x:Static resx:MainWindow.paragraph_1}" />
-                            </Paragraph>
-                            <Paragraph>
-                                <Run Text="{x:Static resx:MainWindow.paragraph_2}" />
-                            </Paragraph>
-                            <Paragraph>
-                                <Run Text="{x:Static resx:MainWindow.paragraph_3}" />
-                            </Paragraph>
-                            <Paragraph>
-                                <TextBlock Text="{x:Static resx:MainWindow.paragraph_4}" />
-                                <Hyperlink Click="WikiClicked" >
-                                    <Run Text="{x:Static resx:MainWindow.wiki_hyperlink}" />
-                                </Hyperlink> .
-                            </Paragraph>
-                        </FlowDocument>
-                    </RichTextBox>
-                    <Grid DockPanel.Dock="Bottom">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                        </Grid.RowDefinitions>
-                        <TextBlock Grid.Row="0" Grid.Column="0" Margin="5" TextWrapping="Wrap" VerticalAlignment="Top">
-                            <Hyperlink Click="TroubleshootClicked"><Run Text="{x:Static resx:MainWindow.troubleshoot_common_issues}" /></Hyperlink>
-                        </TextBlock>
-                        <TextBlock x:Name="chooseLanguageText" Grid.Row="1" Grid.Column="0" Margin="5" Text="{x:Static resx:MainWindow.choose_lang_label}" TextWrapping="Wrap" VerticalAlignment="Top"/>
-                        <ComboBox x:Name="chooseLanguageDropDown" Grid.Row="1" Grid.Column="1" Margin="5" VerticalAlignment="Center"/>
-                        <TextBlock Grid.Row="2" Grid.Column="0" Margin="5" TextWrapping="Wrap" Text="{x:Static resx:MainWindow.verbose_logging_checkbox}" VerticalAlignment="Top"/>
-                        <CheckBox x:Name="eddiVerboseLogging" Grid.Row="2" Grid.Column="1" Margin="5" VerticalAlignment="Center" Checked="verboseLoggingEnabled" Unchecked="verboseLoggingDisabled"/>
-                        <TextBlock Grid.Row="3" Grid.Column="0" Margin="5" TextWrapping="Wrap" Text="{x:Static resx:MainWindow.verbose_logging_desc}"/>
-                        <Button  x:Name="githubIssueButton" Grid.Row="3" Grid.Column="2" Content="{x:Static resx:MainWindow.report_issue}" Margin="5" Width="auto" MinWidth="110" Click="createGithubIssueClicked"/>
-                        <TextBlock Grid.Row="4" Grid.Column="0" Margin="5" TextWrapping="Wrap" Text="{x:Static resx:MainWindow.access_beta}" VerticalAlignment="Top"/>
-                        <CheckBox x:Name="eddiBetaProgramme" Grid.Row="4" Grid.Column="1" Margin="5" VerticalAlignment="Center" Checked="betaProgrammeEnabled" Unchecked="betaProgrammeDisabled"/>
-                    </Grid>
-                    <TextBlock x:Name="heroText" DockPanel.Dock="Top" TextWrapping="Wrap" Margin="10" FontSize="18" FontStyle="Italic" FontWeight="Bold" Text="{x:Static resx:EddiResources.if_using_va}" VerticalAlignment="Center" TextAlignment="Center"/>
-                </DockPanel>
-            </TabItem>
-            <TabItem Header="{x:Static resx:MainWindow.tab_commander_details_header}">
-                <DockPanel LastChildFill="True" Background="{StaticResource NeutralBackgroundBrush}">
-                    <Grid Margin="5">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="120" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="25" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="60" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                        </Grid.RowDefinitions>
-                        <RichTextBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="6" DockPanel.Dock="Top" Margin="0"  IsReadOnly="True" IsDocumentEnabled="True" Background="#FFE5E5E5" BorderThickness="0">
-                            <FlowDocument Background="#FFE5E5E5">
-                                <Paragraph >
-                                    <Run Text="{x:Static resx:MainWindow.tab_commander_Ipa1}" />
-                                    <Hyperlink Click="ipaClicked" >
-                                        <Run Text="{x:Static resx:MainWindow.link_ipa}" />
-                                    </Hyperlink>
-                                    <Run Text="{x:Static resx:MainWindow.tab_commander_Ipa2}" />
+    <DockPanel LastChildFill="True" Background="{StaticResource ResourceKey=DockPanelBackgroundBrush}">
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <TabControl x:Name="tabControl" DockPanel.Dock="Top" TabStripPlacement="Left">
+                <TabControl.Resources>
+                    <Style TargetType="TabItem">
+                        <Setter Property="MinWidth" Value="150" />
+                        <Setter Property="MinHeight" Value="30" />
+                        <Setter Property="FontSize" Value="14" />
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="TabItem">
+                                    <Grid Name="Panel">
+                                        <ContentPresenter x:Name="ContentSite"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Center"
+                                        ContentSource="Header"/>
+                                    </Grid>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsSelected" Value="True">
+                                            <Setter TargetName="Panel" Property="Background" Value="{StaticResource ResourceKey=BrightOrange}" />
+                                            <Setter Property="Foreground" Value="{StaticResource White}" />
+                                        </Trigger>
+                                        <Trigger Property="IsSelected" Value="False">
+                                            <Setter TargetName="Panel" Property="Background" Value="{StaticResource DarkOrange}" />
+                                            <Setter Property="Foreground" Value="{StaticResource White}" />
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </TabControl.Resources>
+                <TabItem Header="EDDI">
+                    <DockPanel LastChildFill="True">
+                        <DockPanel LastChildFill="True" DockPanel.Dock="Bottom" Margin="5">
+                            <TextBlock DockPanel.Dock="Left" VerticalAlignment="Center" Text="{x:Static resx:MainWindow.EDDI_status_label}"/>
+                            <TextBlock x:Name="versionText" VerticalAlignment="Center" DockPanel.Dock="Right"/>
+                            <Label Margin="0,0,0,0" Name="Version" DockPanel.Dock="Right" VerticalAlignment="Center" Width="122">
+                                <Hyperlink Click="ChangeLog_Click">
+                                    <Run Text="{x:Static resx:MainWindow.version_hyperlink}" />
+                                </Hyperlink>
+                            </Label>
+                            <Button x:Name="upgradeButton" VerticalAlignment="Center" DockPanel.Dock="Left" Visibility="Collapsed" Foreground="{StaticResource ResourceKey=BrightOrange}" Click="upgradeClicked" Content="{x:Static resx:MainWindow.upgrade_button}"></Button>
+                            <TextBlock x:Name="statusText" VerticalAlignment="Center" DockPanel.Dock="Left" Text="{x:Static resx:EddiResources.operational}"/>
+                        </DockPanel>
+                        <RichTextBox DockPanel.Dock="Top" Margin="5"  IsReadOnly="True" IsDocumentEnabled="True" Background="{StaticResource ResourceKey=DarkOrange}">
+                            <FlowDocument>
+                                <Paragraph>
+                                    <Hyperlink Click="EDDIClicked">EDDI</Hyperlink>
+                                    <Run Text="{x:Static resx:MainWindow.paragraph_0}" />
+                                </Paragraph>
+                                <Paragraph>
+                                    <Run Text="{x:Static resx:MainWindow.paragraph_1}" />
+                                </Paragraph>
+                                <Paragraph>
+                                    <Run Text="{x:Static resx:MainWindow.paragraph_2}" />
+                                </Paragraph>
+                                <Paragraph>
+                                    <Run Text="{x:Static resx:MainWindow.paragraph_3}" />
+                                </Paragraph>
+                                <Paragraph>
+                                    <Run Text="{x:Static resx:MainWindow.paragraph_4}" />
+                                    <Hyperlink Click="WikiClicked" >
+                                        <Run Text="{x:Static resx:MainWindow.wiki_hyperlink}" />
+                                    </Hyperlink> .
                                 </Paragraph>
                             </FlowDocument>
                         </RichTextBox>
-                        <TextBlock x:Name ="eddi2Text" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="6" Margin="5,10" TextWrapping="Wrap" Text="{x:Static resx:MainWindow.tab_commander_par1}" VerticalAlignment="Top"/>
-                        <Label x:Name ="eddiCommanderPhoneticNameLabel" Grid.Row="2" Grid.Column="0" VerticalContentAlignment="Bottom" Content="{x:Static resx:MainWindow.tab_commander_phonetic_name}" />
-                        <TextBox x:Name ="eddiCommanderPhoneticNameText" VerticalAlignment="Bottom" VerticalContentAlignment="Bottom" TextChanged="commanderPhoneticNameChanged" Margin="0,5" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan ="3" Height="20" LostFocus="eddiCommanderPhoneticNameText_LostFocus">
-                            <TextBox.Text>
-                                <Binding Path="Cmdr.phoneticName" NotifyOnTargetUpdated="True" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay" TargetNullValue="{x:Static System:String.Empty}">
-                                    <Binding.ValidationRules>
-                                        <utility:ValidIPARule ValidatesOnTargetUpdated="True" />
-                                    </Binding.ValidationRules>
-                                </Binding>                                
-                            </TextBox.Text>
-                            <TextBox.Style>
-                                <Style TargetType="{x:Type TextBox}">
-                                    <Style.Triggers>
-                                        <Trigger Property="Validation.HasError" Value="true">
-                                            <Setter Property="ToolTipService.ToolTip"
-                                            Value="{Binding RelativeSource={x:Static RelativeSource.Self}, Path=(Validation.Errors)[0].ErrorContent}"/>
-                                        </Trigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </TextBox.Style>
-                        </TextBox>
-                        <Button x:Name="eddiCmdrPhoneticNameTestButton" Margin="10, 5" Grid.Row="2" Grid.Column="4" Content="{x:Static resx:MainWindow.tab_commander_test_phonetic_name}" Click="eddiCmdrPhoneticNameTestButtonClicked" />
-                        <Label x:Name ="eddiHomeSystemLabel" Grid.Row="3" Grid.Column="0" VerticalContentAlignment="Bottom" Content="{x:Static resx:MainWindow.tab_commander_home_system}" />
-                        <local:StarSystemComboBox x:Name="homeSystemDropDown"
-                                  IsEditable="True"
-                                  IsReadOnly="False"
-                                  IsTextSearchEnabled="False"
-                                  TextBoxBase.TextChanged="HomeSystemText_TextChanged"
-                                  Grid.Row="3"
-                                  Grid.Column="1"
-                                  Grid.ColumnSpan ="3"
-                                  Margin="0, 5"
-                                  VerticalContentAlignment="Center"
-                                  LostFocus="HomeSystemDropDown_LostFocus"
-                                  SelectionChanged="HomeSystemDropDown_SelectionChanged"/>
-                        <Label x:Name ="eddiHomeStationLabel" Grid.Row="4" Grid.Column="0" VerticalContentAlignment="Center" Content="{x:Static resx:MainWindow.tab_commander_home_station}"/>
-                        <ComboBox x:Name="homeStationDropDown" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan ="2" Margin="0, 5" VerticalContentAlignment="Center" SelectionChanged="homeStationDropDownUpdated"/>
-                        <Label x:Name ="eddiGenderLabel" Grid.Row="7" Grid.RowSpan="3" Grid.Column="0" Grid.ColumnSpan ="2" Margin="0, 5" Content="{x:Static resx:MainWindow.tab_commander_gender}"/>
-                        <RadioButton x:Name ="eddiGenderMale"
-                                     Content="{x:Static resx:MainWindow.tab_commander_gender_m}"
-                                     HorizontalAlignment="Left"
+                        <Grid DockPanel.Dock="Bottom" Margin="5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Row="0" Grid.Column="0" Margin="5" TextWrapping="Wrap" VerticalAlignment="Top">
+                            <Hyperlink Click="TroubleshootClicked"><Run Text="{x:Static resx:MainWindow.troubleshoot_common_issues}" /></Hyperlink>
+                            </TextBlock>
+                            <TextBlock x:Name="chooseLanguageText" Grid.Row="1" Grid.Column="0" Margin="5" Text="{x:Static resx:MainWindow.choose_lang_label}" TextWrapping="Wrap" VerticalAlignment="Top"/>
+                            <ComboBox x:Name="chooseLanguageDropDown" Grid.Row="1" Grid.Column="1" Margin="5" VerticalAlignment="Center"/>
+                            <TextBlock Grid.Row="2" Grid.Column="0" Margin="5" TextWrapping="Wrap" Text="{x:Static resx:MainWindow.verbose_logging_checkbox}" VerticalAlignment="Top"/>
+                            <CheckBox x:Name="eddiVerboseLogging" Grid.Row="2" Grid.Column="1" Margin="5" VerticalAlignment="Center" Checked="verboseLoggingEnabled" Unchecked="verboseLoggingDisabled"/>
+                            <TextBlock Grid.Row="3" Grid.Column="0" Margin="5" TextWrapping="Wrap" Text="{x:Static resx:MainWindow.verbose_logging_desc}"/>
+                            <Button  x:Name="githubIssueButton" Grid.Row="3" Grid.Column="2" Content="{x:Static resx:MainWindow.report_issue}" Click="createGithubIssueClicked" HorizontalAlignment="Left"/>
+                            <TextBlock Grid.Row="4" Grid.Column="0" Margin="5" TextWrapping="Wrap" Text="{x:Static resx:MainWindow.access_beta}" VerticalAlignment="Top"/>
+                            <CheckBox x:Name="eddiBetaProgramme" Grid.Row="4" Grid.Column="1" Margin="5" VerticalAlignment="Center" Checked="betaProgrammeEnabled" Unchecked="betaProgrammeDisabled"/>
+                        </Grid>
+                        <TextBlock x:Name="heroText" DockPanel.Dock="Top" TextWrapping="Wrap" Margin="10" FontSize="18" FontStyle="Italic" FontWeight="Bold" Text="{x:Static resx:EddiResources.if_using_va}" VerticalAlignment="Center" TextAlignment="Center"/>
+                    </DockPanel>
+                </TabItem>
+                <TabItem Header="{x:Static resx:MainWindow.tab_commander_details_header}">
+                    <DockPanel LastChildFill="True">
+                        <Grid Margin="5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="150" />
+                                <ColumnDefinition Width="125*" />
+                                <ColumnDefinition Width="12*" />
+                                <ColumnDefinition Width="131*" />
+                                <ColumnDefinition Width="131*" />
+                                <ColumnDefinition Width="131*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="50" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="30" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <RichTextBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="6" DockPanel.Dock="Top" IsReadOnly="True" IsDocumentEnabled="True" 
+                                         Background="{StaticResource ResourceKey=DarkOrange}"
+                                         BorderThickness="0">
+                                <FlowDocument>
+                                    <Paragraph Margin="5">
+                                        <Run Text="{x:Static resx:MainWindow.tab_commander_Ipa1}" />
+                                        <Hyperlink Click="ipaClicked" >
+                                            <Run Text="{x:Static resx:MainWindow.link_ipa}" />
+                                        </Hyperlink>
+                                        <Run Text="{x:Static resx:MainWindow.tab_commander_Ipa2}" />
+                                    </Paragraph>
+                                </FlowDocument>
+                            </RichTextBox>
+                            <TextBlock x:Name ="eddi2Text" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="6" TextWrapping="Wrap" Text="{x:Static resx:MainWindow.tab_commander_par1}" VerticalAlignment="Top" Width="735" Height="42" Margin="10,0,2,0"/>
+                            <Label x:Name ="eddiCommanderPhoneticNameLabel" Grid.Row="2" Grid.Column="0" Content="{x:Static resx:MainWindow.tab_commander_phonetic_name}"/>
+                            <TextBox x:Name ="eddiCommanderPhoneticNameText" TextChanged="commanderPhoneticNameChanged" Background="{StaticResource ResourceKey=White}" Foreground="{StaticResource ResourceKey=Black}"
                                      VerticalAlignment="Center"
-                                     Height="Auto"
-                                     Grid.Row="7"
-                                     Checked="isMale_Checked"
-                                     Margin="0, 12.5, 0, 5"
-                                     Grid.Column="2"/>
-                        <RadioButton x:Name ="eddiGenderFemale"
-                                     Content="{x:Static resx:MainWindow.tab_commander_gender_f}"
-                                     HorizontalAlignment="Left"
-                                     VerticalAlignment="Center"
-                                     Height="Auto"
-                                     Grid.Row="8"
-                                     Checked="isFemale_Checked"
-                                     Margin="0, 5"
-                                     Grid.Column="2"/>
-                        <RadioButton x:Name ="eddiGenderNeither"
-                                     Content="{x:Static resx:MainWindow.tab_commander_gender_n}"
-                                     HorizontalAlignment="Left"
-                                     VerticalAlignment="Center"
-                                     Height="Auto"
-                                     Grid.Row="9"
-                                     Checked="isNeitherGender_Checked"
-                                     Margin="0, 5"
-                                     Grid.Column="2"/>
-                        <Label x:Name ="eddiSquadronNameLabel" Grid.Row="10" Grid.Column="0" VerticalContentAlignment="Bottom" Content="{x:Static resx:MainWindow.tab_commander_squadron_name}" />
-                        <TextBox x:Name ="eddiSquadronNameText" VerticalAlignment="Bottom" VerticalContentAlignment="Center" TextChanged="squadronNameChanged" Margin="0,5" Grid.Row="10" Grid.Column="1" Grid.ColumnSpan ="3" Height="25" LostFocus="eddiSquadronNameText_LostFocus">
-                            <Binding UpdateSourceTrigger="PropertyChanged" ElementName="eddiConfiguration" Path="SquadronName" />
-                        </TextBox>
-                        <Label x:Name ="eddiSquadronIDLabel" Grid.Row="11" Grid.Column="0" VerticalContentAlignment="Bottom" Content="{x:Static resx:MainWindow.tab_commander_squadron_id}" />
-                        <TextBox x:Name ="eddiSquadronIDText" VerticalAlignment="Bottom" VerticalContentAlignment="Center" TextChanged="squadronIDChanged" Margin="0,5" Grid.Row="11" Grid.Column="1" Grid.ColumnSpan ="1" Height="25" LostFocus="eddiSquadronIDText_LostFocus">
-                            <Binding UpdateSourceTrigger="PropertyChanged" ElementName="eddiConfiguration" Path="SquadronID" />
-                        </TextBox>
-                        <Label x:Name ="eddiSquadronRankLabel" Grid.Row="12" Grid.Column="0" VerticalContentAlignment="Center" Content="{x:Static resx:MainWindow.tab_commander_squadron_rank}" />
-                        <ComboBox x:Name="squadronRankDropDown" Grid.Row="12" Grid.Column="1" Margin="0, 5" VerticalContentAlignment="Center" SelectionChanged="squadronRankDropDownUpdated" />
-                        <Label x:Name ="eddiSquadronSystemLabel" Grid.Row="13" Grid.Column="0" VerticalContentAlignment="Center" Content="{x:Static resx:MainWindow.tab_commander_squadron_system}" />
-                        <local:StarSystemComboBox x:Name="squadronSystemDropDown"
-                                  IsEditable="True"
-                                  IsReadOnly="False"
-                                  IsTextSearchEnabled="False"
-                                  TextBoxBase.TextChanged="SquadronSystemText_TextChanged"
-                                  Grid.Row="13"
-                                  Grid.Column="1"
-                                  Grid.ColumnSpan ="3"
-                                  Margin="0, 5"
-                                  VerticalContentAlignment="Center"
-                                  LostFocus="SquadronSystemDropDown_LostFocus"
-                                  SelectionChanged="SquadronSystemDropDown_SelectionChanged"/>                                                
-                        <Label x:Name ="eddiSquadronFactionLabel" Grid.Row="14" Grid.Column="0" VerticalContentAlignment="Center" Content="{x:Static resx:MainWindow.tab_commander_squadron_faction}" />
-                        <ComboBox x:Name="squadronFactionDropDown" Grid.Row="14" Grid.Column="1" Grid.ColumnSpan ="2" Margin="0, 5" VerticalContentAlignment="Center" SelectionChanged="squadronFactionDropDownUpdated" />
-                        <Label x:Name ="eddiSquadronPowerLabel" Grid.Row="15" Grid.Column="0" VerticalContentAlignment="Center" Content="{x:Static resx:MainWindow.tab_commander_squadron_power}" />
-                        <ComboBox x:Name="squadronPowerDropDown" Grid.Row="15" Grid.Column="1" Grid.ColumnSpan ="2" Margin="0, 5" VerticalContentAlignment="Center" SelectionChanged="squadronPowerDropDownUpdated" />
-                    </Grid>
-                </DockPanel>
-            </TabItem>
-            <TabItem Header="{x:Static resx:MainWindow.tab_frontier_header}">
-                <DockPanel LastChildFill="True" Background="{StaticResource NeutralBackgroundBrush}">
-                    <TextBlock DockPanel.Dock="Top" TextWrapping="Wrap" Margin="5" Text="{x:Static resx:MainWindow.tab_frontier_desc}" VerticalAlignment="Top"/>
-                    <Grid DockPanel.Dock="Top">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                        </Grid.RowDefinitions>
-                        <Button  x:Name="companionAppButton"
+                                     Grid.Row="2" Grid.ColumnSpan ="3" LostFocus="eddiCommanderPhoneticNameText_LostFocus" Grid.Column="1" Width="250">
+                                <TextBox.Text>
+                                    <Binding Path="Cmdr.phoneticName" NotifyOnTargetUpdated="True" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay" TargetNullValue="{x:Static System:String.Empty}">
+                                        <Binding.ValidationRules>
+                                            <utility:ValidIPARule ValidatesOnTargetUpdated="True" />
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                                <TextBox.Style>
+                                    <Style TargetType="{x:Type TextBox}">
+                                        <Setter Property="Padding" Value="10" />
+                                        <Setter Property="HorizontalAlignment" Value="Left" />
+                                        <Setter Property="HorizontalContentAlignment" Value="Left" />
+                                        <Setter Property="VerticalAlignment" Value="Center" />
+                                        <Setter Property="VerticalContentAlignment" Value="Center" />
+                                        <Setter Property="Margin" Value="5" />
+                                        <Setter Property="FontSize" Value="16" />
+                                        <Setter Property="Width" Value="Auto" />
+                                        <Setter Property="MinWidth" Value="150" />
+                                        <Setter Property="Height" Value="30" />
+                                        <Setter Property="MinHeight" Value="30" />
+                                        <Style.Triggers>
+                                            <Trigger Property="Validation.HasError" Value="true">
+                                                <Setter Property="ToolTipService.ToolTip"
+                                                Value="{Binding RelativeSource={x:Static RelativeSource.Self}, Path=(Validation.Errors)[0].ErrorContent}"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBox.Style>
+                            </TextBox>
+                            <Button x:Name="eddiCmdrPhoneticNameTestButton" Grid.Row="2" Grid.Column="4" Content="{x:Static resx:MainWindow.tab_commander_test_phonetic_name}" Click="eddiCmdrPhoneticNameTestButtonClicked" />
+                            <Label x:Name ="eddiHomeSystemLabel" Grid.Row="3" Grid.Column="0" Content="{x:Static resx:MainWindow.tab_commander_home_system}" />
+                            <local:StarSystemComboBox x:Name="homeSystemDropDown"
+                                      IsEditable="True"
+                                      IsReadOnly="False"
+                                      IsTextSearchEnabled="False"
+                                      TextBoxBase.TextChanged="HomeSystemText_TextChanged"
+                                      Grid.Row="3"
+                                      Grid.Column="1"
+                                      Grid.ColumnSpan ="4"
+                                      Margin="5"
+                                      VerticalContentAlignment="Center"
+                                      LostFocus="HomeSystemDropDown_LostFocus"
+                                      SelectionChanged="HomeSystemDropDown_SelectionChanged" />
+                            <Label x:Name ="eddiHomeStationLabel" Grid.Row="4" Grid.Column="0" Content="{x:Static resx:MainWindow.tab_commander_home_station}" />
+                            <ComboBox x:Name="homeStationDropDown" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan ="3" SelectionChanged="homeStationDropDownUpdated"/>
+                            <Label x:Name ="eddiGenderLabel" Grid.Row="7" Grid.Column="0" Grid.ColumnSpan ="3" Content="{x:Static resx:MainWindow.tab_commander_gender}" HorizontalAlignment="left"/>
+                            <RadioButton x:Name ="eddiGenderMale"
+                                         Content="{x:Static resx:MainWindow.tab_commander_gender_m}"
+                                         HorizontalAlignment="Left"
+                                         VerticalAlignment="Center"
+                                         Height="16"
+                                         Grid.Row="7"
+                                         Checked="isMale_Checked"
+                                         Margin="5"
+                                         Grid.Column="3" Width="Auto"/>
+                            <RadioButton x:Name ="eddiGenderFemale"
+                                         Content="{x:Static resx:MainWindow.tab_commander_gender_f}"
+                                         HorizontalAlignment="Left"
+                                         VerticalAlignment="Center"
+                                         Height="16"
+                                         Grid.Row="8"
+                                         Checked="isFemale_Checked"
+                                         Margin="5"
+                                         Grid.Column="3" Width="Auto"/>
+                            <RadioButton x:Name ="eddiGenderNeither"
+                                         Content="{x:Static resx:MainWindow.tab_commander_gender_n}"
+                                         HorizontalAlignment="Left"
+                                         VerticalAlignment="Center"
+                                         Height="16"
+                                         Grid.Row="9"
+                                         Checked="isNeitherGender_Checked"
+                                         Margin="5"
+                                         Grid.Column="3" Width="Auto"/>
+                            <Label x:Name ="eddiSquadronNameLabel" Grid.Row="10" Grid.Column="0" Content="{x:Static resx:MainWindow.tab_commander_squadron_name}" />
+                            <TextBox x:Name ="eddiSquadronNameText" TextChanged="squadronNameChanged" Grid.Row="10" Grid.Column="1" Grid.ColumnSpan ="4" LostFocus="eddiSquadronNameText_LostFocus">
+                                <Binding UpdateSourceTrigger="PropertyChanged" ElementName="eddiConfiguration" Path="SquadronName" />
+                            </TextBox>
+                            <Label x:Name ="eddiSquadronIDLabel" Grid.Row="11" Grid.Column="0" VerticalContentAlignment="Center" Content="{x:Static resx:MainWindow.tab_commander_squadron_id}" />
+                            <TextBox x:Name ="eddiSquadronIDText" VerticalAlignment="Bottom"  TextChanged="squadronIDChanged" Grid.Row="11" Grid.Column="1" Grid.ColumnSpan ="3" LostFocus="eddiSquadronIDText_LostFocus" HorizontalAlignment="Stretch" Margin="5,0,116.879,5">
+                                <Binding UpdateSourceTrigger="PropertyChanged" ElementName="eddiConfiguration" Path="SquadronID" />
+                            </TextBox>
+                            <Label x:Name ="eddiSquadronRankLabel" Grid.Row="12" Grid.Column="0" Content="{x:Static resx:MainWindow.tab_commander_squadron_rank}" />
+                            <ComboBox x:Name="squadronRankDropDown" Grid.Row="12" Grid.Column="1" VerticalContentAlignment="Center" SelectionChanged="squadronRankDropDownUpdated" Grid.ColumnSpan="3"/>
+                            <Label x:Name ="eddiSquadronSystemLabel" Grid.Row="13" Grid.Column="0" Content="{x:Static resx:MainWindow.tab_commander_squadron_system}" />
+                            <local:StarSystemComboBox x:Name="squadronSystemDropDown"
+                                      IsEditable="True"
+                                      IsReadOnly="False"
+                                      IsTextSearchEnabled="False"
+                                      TextBoxBase.TextChanged="SquadronSystemText_TextChanged"
+                                      Grid.Row="13"
+                                      Grid.Column="1"
+                                      Grid.ColumnSpan ="4"
+                                      Margin="5"
+                                      VerticalContentAlignment="Center"
+                                      LostFocus="SquadronSystemDropDown_LostFocus"
+                                      SelectionChanged="SquadronSystemDropDown_SelectionChanged"/>
+                            <Label x:Name ="eddiSquadronFactionLabel" Grid.Row="14" Grid.Column="0" Content="{x:Static resx:MainWindow.tab_commander_squadron_faction}" />
+                            <ComboBox x:Name="squadronFactionDropDown" Grid.Row="14" Grid.Column="1" Grid.ColumnSpan ="3" Margin="5" SelectionChanged="squadronFactionDropDownUpdated" />
+                            <Label x:Name ="eddiSquadronPowerLabel" Grid.Row="15" Grid.Column="0" Content="{x:Static resx:MainWindow.tab_commander_squadron_power}" />
+                            <ComboBox x:Name="squadronPowerDropDown" Grid.Row="15" Grid.Column="1" Grid.ColumnSpan ="3" SelectionChanged="squadronPowerDropDownUpdated" />
+                        </Grid>
+                    </DockPanel>
+                </TabItem>
+                <TabItem Header="{x:Static resx:MainWindow.tab_frontier_header}">
+                    <DockPanel LastChildFill="True">
+                        <TextBlock DockPanel.Dock="Top" TextWrapping="Wrap" Margin="5" Text="{x:Static resx:MainWindow.tab_frontier_desc}" VerticalAlignment="Top"/>
+                        <Grid DockPanel.Dock="Top">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Button x:Name="companionAppButton"
                                  Grid.Row="4"
                                  Grid.Column="0"
                                  Grid.ColumnSpan="2"
@@ -260,72 +289,73 @@
                                  Click="companionAppClicked"
                                  HorizontalAlignment="Right"
                                  MinWidth="80" />
-                        <TextBlock x:Name ="companionAppText" Grid.Row="4" Grid.Column="0" Margin="5" TextWrapping="Wrap" Text="{x:Static resx:MainWindow.tab_frontier_reset_desc}"/>
-                        <TextBlock x:Name ="companionAppStatusLabel" Grid.Row="5" Grid.Column="0" Margin="5" Text="{x:Static resx:EddiResources.frontierApiStatusLabel}"  HorizontalAlignment="Right"/>
-                        <TextBlock x:Name ="companionAppStatusValue" Grid.Row="5" Grid.Column="1" Margin="5" Text="{x:Static resx:EddiResources.frontierApiNotConnected}"  HorizontalAlignment="Right" MinWidth="80" TextAlignment="Center"/>
-                    </Grid>
-                </DockPanel>
-            </TabItem>
-            <TabItem Header="{x:Static resx:MainWindow.tab_tts_header}">
-                <DockPanel LastChildFill="True" Background="{StaticResource NeutralBackgroundBrush}">
-                    <TextBlock x:Name="ttsText" DockPanel.Dock="Top" TextWrapping="Wrap" Margin="5" Text="{x:Static resx:MainWindow.tab_tts_desc}" />
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="auto" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="auto" />
-                            <RowDefinition Height="auto" />
-                            <RowDefinition Height="auto" />
-                            <RowDefinition Height="auto" />
-                            <RowDefinition Height="auto" />
-                            <RowDefinition Height="auto" />
-                            <RowDefinition Height="auto" />
-                            <RowDefinition Height="auto" />
-                            <RowDefinition Height="auto" />
-                            <RowDefinition Height="auto" />
-                            <RowDefinition Height="auto" />
-                            <RowDefinition Height="auto" />
-                        </Grid.RowDefinitions>
-                        <Label x:Name="ttsVoiceLabel" Grid.Column="0" Grid.Row="0" Margin="0, 5" VerticalContentAlignment="Center" Content="{x:Static resx:MainWindow.tab_tts_voice_label}" />
-                        <ComboBox x:Name="ttsVoiceDropDown" Grid.Column="1" Grid.Row="0" Margin="5" VerticalContentAlignment="Center" SelectionChanged="ttsVoiceDropDownUpdated"/>
-                        <Label x:Name="ttsVolumeLabel" Grid.Column="0" Grid.Row="1" Margin="0, 5" Content="{x:Static resx:MainWindow.tab_tts_volume_label}" />
-                        <DockPanel LastChildFill="True" Grid.Column="1" Grid.Row="1" Margin="5" VerticalAlignment="Center">
-                            <TextBox x:Name="ttsVolumeText"  DockPanel.Dock="Right" Text="{Binding ElementName=ttsVolumeSlider, Path=Value, UpdateSourceTrigger=PropertyChanged}" TextAlignment="Right" Width="40" Margin="5,0,0,0"/>
-                            <Slider x:Name="ttsVolumeSlider" Minimum="0" Maximum="100" IsSnapToTickEnabled="True" TickFrequency="1" ValueChanged="ttsVolumeUpdated"/>
-                        </DockPanel>
-                        <Label x:Name="ttsRateLabel" Grid.Column="0" Grid.Row="2" Margin="0, 5" Content="{x:Static resx:MainWindow.tab_tts_rate_label}" />
-                        <DockPanel LastChildFill="True" Grid.Column="1" Grid.Row="2" Margin="5" VerticalAlignment="Center">
-                            <TextBox x:Name="ttsRateText"  DockPanel.Dock="Right" Text="{Binding ElementName=ttsRateSlider, Path=Value, UpdateSourceTrigger=PropertyChanged}" TextAlignment="Right" Width="40"/>
-                            <Slider x:Name="ttsRateSlider" Minimum="-10" Maximum="10"  IsSnapToTickEnabled="True" TickFrequency="1" ValueChanged="ttsRateUpdated"/>
-                        </DockPanel>
-                        <Label x:Name="ttsEffectsLevelLabel" Grid.Column="0" Grid.Row="3" Margin="0, 5" Content="{x:Static resx:MainWindow.tab_tts_level_label}" />
-                        <DockPanel LastChildFill="True" Grid.Column="1" Grid.Row="3" Margin="5" VerticalAlignment="Center">
-                            <TextBox x:Name="ttsEffectsLevelText"  DockPanel.Dock="Right" Text="{Binding ElementName=ttsEffectsLevelSlider, Path=Value, UpdateSourceTrigger=PropertyChanged}" TextAlignment="Right" Width="40"/>
-                            <Slider x:Name="ttsEffectsLevelSlider" Minimum="0" Maximum="100"  IsSnapToTickEnabled="True" TickFrequency="1" ValueChanged="ttsEffectsLevelUpdated"/>
-                        </DockPanel>
-                        <Label x:Name="ttsDistortLabel" Grid.Column="0" Grid.Row="4" Margin="0, 5" Content="{x:Static resx:MainWindow.tab_tts_distort_label}" />
-                        <CheckBox x:Name="ttsDistortCheckbox" Grid.Column="1" Grid.Row="4" Margin="5" VerticalAlignment="Center" Checked="ttsDistortionLevelUpdated" Unchecked="ttsDistortionLevelUpdated"/>
-                        <TextBlock Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2" Margin="5" TextWrapping="Wrap" Text="{x:Static resx:MainWindow.tab_tts_test_desc}" />
-                        <Label x:Name="ttsTestShipLabel" Grid.Column="0" Grid.Row="6" Margin="0, 5" VerticalContentAlignment="Center" Content="{x:Static resx:MainWindow.tab_tts_test_ship_label}" />
-                        <ComboBox x:Name="ttsTestShipDropDown" Grid.Column="1" Grid.Row="6" Margin="5" VerticalContentAlignment="Center"/>
-                        <UniformGrid Grid.Column="0" Grid.Row="7" Grid.ColumnSpan="2" Margin="5" Columns="2">
-                            <Button x:Name="ttsTestButton" Margin="0,0,5,0" Content="{x:Static resx:MainWindow.tab_tts_test_button}" Click="ttsTestVoiceButtonClicked" />
-                            <Button x:Name="ttsTestDamagedButton" Margin="5,0,0,0" Content="{x:Static resx:MainWindow.tab_tts_test_damaged_button}" Click="ttsTestDamagedVoiceButtonClicked" />
-                        </UniformGrid>
-                        <TextBlock Grid.Column="0" Grid.Row="8" Grid.ColumnSpan="2" Margin="5" TextWrapping="Wrap" Text="{x:Static resx:MainWindow.tab_tts_phonetic_speech_desc}" />
-                        <Label x:Name="disableSsmltLabel" VerticalAlignment="Top" Grid.Column="0" Grid.Row="9" Margin="0, 5" Content="{x:Static resx:MainWindow.tab_tts_disable_phonetic_speech_label}" />
-                        <DockPanel Grid.Column="1" Grid.Row="9" Margin="0, 5">
-                            <CheckBox Grid.Column="1" x:Name="disableSsmlCheckbox" Margin="5" VerticalAlignment="Top" Checked="disableSsmlUpdated" Unchecked="disableSsmlUpdated"/>
-                            <TextBlock Margin="5" HorizontalAlignment="Stretch" TextWrapping="Wrap" Text="{x:Static resx:MainWindow.tab_tts_disable_phonetic_speech_note}" />
-                        </DockPanel>
-                        <TextBlock Grid.Column="0" Grid.Row="10" Grid.ColumnSpan="2" Margin="5" TextWrapping="Wrap" Text="{x:Static resx:MainWindow.tab_tts_icao_desc}" />
-                        <Label x:Name="enableIcaoLabel" Grid.Column="0" Grid.Row="11" Margin="0, 5" Content="{x:Static resx:MainWindow.tab_tts_icao_label}" />
-                        <CheckBox x:Name="enableIcaoCheckbox" Grid.Column="1" Grid.Row="11" Margin="5" VerticalAlignment="Center" Checked="enableICAOUpdated" Unchecked="enableICAOUpdated"/>
-                    </Grid>
-                </DockPanel>
-            </TabItem>
-        </TabControl>
+                            <TextBlock x:Name ="companionAppText" Grid.Row="4" Grid.Column="0" Margin="10,5,16,5" TextWrapping="Wrap" Text="{x:Static resx:MainWindow.tab_frontier_reset_desc}" Width="644"/>
+                            <TextBlock x:Name ="companionAppStatusLabel" Grid.Row="5" Grid.Column="0" Margin="5" Text="{x:Static resx:EddiResources.frontierApiStatusLabel}"  HorizontalAlignment="Right"/>
+                            <TextBlock x:Name ="companionAppStatusValue" Grid.Row="5" Grid.Column="1" Margin="5" Text="{x:Static resx:EddiResources.frontierApiNotConnected}"  HorizontalAlignment="Right" MinWidth="80" TextAlignment="Center"/>
+                        </Grid>
+                    </DockPanel>
+                </TabItem>
+                <TabItem Header="{x:Static resx:MainWindow.tab_tts_header}">
+                    <DockPanel LastChildFill="True" Background="{StaticResource NeutralBackgroundBrush}">
+                        <TextBlock x:Name="ttsText" DockPanel.Dock="Top" TextWrapping="Wrap" Margin="5" Text="{x:Static resx:MainWindow.tab_tts_desc}" />
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                            </Grid.RowDefinitions>
+                            <Label x:Name="ttsVoiceLabel" Grid.Column="0" Grid.Row="0" Margin="0, 5" VerticalContentAlignment="Center" Content="{x:Static resx:MainWindow.tab_tts_voice_label}" />
+                            <ComboBox x:Name="ttsVoiceDropDown" Grid.Column="1" Grid.Row="0" Margin="5" VerticalContentAlignment="Center" SelectionChanged="ttsVoiceDropDownUpdated"/>
+                            <Label x:Name="ttsVolumeLabel" Grid.Column="0" Grid.Row="1" Margin="0, 5" Content="{x:Static resx:MainWindow.tab_tts_volume_label}" />
+                            <DockPanel LastChildFill="True" Grid.Column="1" Grid.Row="1" Margin="5" VerticalAlignment="Center">
+                                <TextBox x:Name="ttsVolumeText"  DockPanel.Dock="Right" Text="{Binding ElementName=ttsVolumeSlider, Path=Value, UpdateSourceTrigger=PropertyChanged}" TextAlignment="Right"/>
+                                <Slider x:Name="ttsVolumeSlider" Minimum="0" Maximum="100" IsSnapToTickEnabled="True" TickFrequency="1" ValueChanged="ttsVolumeUpdated"/>
+                            </DockPanel>
+                            <Label x:Name="ttsRateLabel" Grid.Column="0" Grid.Row="2" Margin="0, 5" Content="{x:Static resx:MainWindow.tab_tts_rate_label}" />
+                            <DockPanel LastChildFill="True" Grid.Column="1" Grid.Row="2" Margin="5" VerticalAlignment="Center">
+                                <TextBox x:Name="ttsRateText"  DockPanel.Dock="Right" Text="{Binding ElementName=ttsRateSlider, Path=Value, UpdateSourceTrigger=PropertyChanged}" TextAlignment="Right" Width="40"/>
+                                <Slider x:Name="ttsRateSlider" Minimum="-10" Maximum="10"  IsSnapToTickEnabled="True" TickFrequency="1" ValueChanged="ttsRateUpdated"/>
+                            </DockPanel>
+                            <Label x:Name="ttsEffectsLevelLabel" Grid.Column="0" Grid.Row="3" Margin="0, 5" Content="{x:Static resx:MainWindow.tab_tts_level_label}" />
+                            <DockPanel LastChildFill="True" Grid.Column="1" Grid.Row="3" Margin="5" VerticalAlignment="Center">
+                                <TextBox x:Name="ttsEffectsLevelText"  DockPanel.Dock="Right" Text="{Binding ElementName=ttsEffectsLevelSlider, Path=Value, UpdateSourceTrigger=PropertyChanged}" TextAlignment="Right" Width="40"/>
+                                <Slider x:Name="ttsEffectsLevelSlider" Minimum="0" Maximum="100"  IsSnapToTickEnabled="True" TickFrequency="1" ValueChanged="ttsEffectsLevelUpdated"/>
+                            </DockPanel>
+                            <Label x:Name="ttsDistortLabel" Grid.Column="0" Grid.Row="4" Margin="0, 5" Content="{x:Static resx:MainWindow.tab_tts_distort_label}" />
+                            <CheckBox x:Name="ttsDistortCheckbox" Grid.Column="1" Grid.Row="4" Margin="5" VerticalAlignment="Center" Checked="ttsDistortionLevelUpdated" Unchecked="ttsDistortionLevelUpdated"/>
+                            <TextBlock Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2" Margin="5" TextWrapping="Wrap" Text="{x:Static resx:MainWindow.tab_tts_test_desc}" />
+                            <Label x:Name="ttsTestShipLabel" Grid.Column="0" Grid.Row="6" Margin="0, 5" VerticalContentAlignment="Center" Content="{x:Static resx:MainWindow.tab_tts_test_ship_label}" />
+                            <ComboBox x:Name="ttsTestShipDropDown" Grid.Column="1" Grid.Row="6" Margin="5" VerticalContentAlignment="Center"/>
+                            <UniformGrid Grid.Column="0" Grid.Row="7" Grid.ColumnSpan="2" Margin="5" Columns="2">
+                                <Button x:Name="ttsTestButton" Content="{x:Static resx:MainWindow.tab_tts_test_button}" Click="ttsTestVoiceButtonClicked" Width="300"/>
+                                <Button x:Name="ttsTestDamagedButton" Content="{x:Static resx:MainWindow.tab_tts_test_damaged_button}" Click="ttsTestDamagedVoiceButtonClicked" Width="300" />
+                            </UniformGrid>
+                            <TextBlock Grid.Column="0" Grid.Row="8" Grid.ColumnSpan="2" Margin="5" TextWrapping="Wrap" Text="{x:Static resx:MainWindow.tab_tts_phonetic_speech_desc}" />
+                            <Label x:Name="disableSsmltLabel" VerticalAlignment="Center" Grid.Column="0" Grid.Row="9" Margin="0, 5" Content="{x:Static resx:MainWindow.tab_tts_disable_phonetic_speech_label}" />
+                            <DockPanel Grid.Column="1" Grid.Row="9" Margin="0, 5">
+                                <CheckBox Grid.Column="1" x:Name="disableSsmlCheckbox" Margin="5" VerticalAlignment="Center" Checked="disableSsmlUpdated" Unchecked="disableSsmlUpdated"/>
+                                <TextBlock Margin="5" HorizontalAlignment="Stretch" TextWrapping="Wrap" Text="{x:Static resx:MainWindow.tab_tts_disable_phonetic_speech_note}" />
+                            </DockPanel>
+                            <TextBlock Grid.Column="0" Grid.Row="10" Grid.ColumnSpan="2" Margin="5" TextWrapping="Wrap" Text="{x:Static resx:MainWindow.tab_tts_icao_desc}" />
+                            <Label x:Name="enableIcaoLabel" Grid.Column="0" Grid.Row="11" Margin="0, 5" Content="{x:Static resx:MainWindow.tab_tts_icao_label}" />
+                            <CheckBox x:Name="enableIcaoCheckbox" Grid.Column="1" Grid.Row="11" Margin="5" VerticalAlignment="Center" Checked="enableICAOUpdated" Unchecked="enableICAOUpdated"/>
+                        </Grid>
+                    </DockPanel>
+                </TabItem>
+            </TabControl>
+        </ScrollViewer>
     </DockPanel>
 </Window>

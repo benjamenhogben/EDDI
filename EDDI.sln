@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29123.88
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.1000
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EddiCompanionAppService", "CompanionAppService\EddiCompanionAppService.csproj", "{462ED721-1C9C-43FA-8A3F-4C1644363A5A}"
 EndProject
@@ -33,6 +33,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		images\ProfileOptions.jpg = images\ProfileOptions.jpg
 		images\ProfileOptionsOnLoad.jpg = images\ProfileOptionsOnLoad.jpg
 		README.md = README.md
+		ResTempl1.rct = ResTempl1.rct
 		TROUBLESHOOTING.md = TROUBLESHOOTING.md
 		VoiceAttack.md = VoiceAttack.md
 	EndProjectSection
@@ -111,6 +112,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EddiInaraResponder", "InaraResponder\EddiInaraResponder.csproj", "{11BEF9D3-91A4-4522-9581-BCC2A1F5EEC7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EddiInaraService", "EddiInaraService\EddiInaraService.csproj", "{19AB6841-AA93-4D23-BE6D-4CB6883CDF62}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EDDIStyling", "EDDIStyling\EDDIStyling.csproj", "{A3E8F349-D621-4BDD-B70A-B29832323402}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -226,6 +229,10 @@ Global
 		{19AB6841-AA93-4D23-BE6D-4CB6883CDF62}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{19AB6841-AA93-4D23-BE6D-4CB6883CDF62}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{19AB6841-AA93-4D23-BE6D-4CB6883CDF62}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A3E8F349-D621-4BDD-B70A-B29832323402}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A3E8F349-D621-4BDD-B70A-B29832323402}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A3E8F349-D621-4BDD-B70A-B29832323402}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A3E8F349-D621-4BDD-B70A-B29832323402}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

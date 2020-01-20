@@ -262,5 +262,10 @@ namespace EddiCrimeMonitor
             // Swallow the character doesn't match the regex
             e.Handled = !regex.IsMatch(e.Text);
         }
+
+        private void CriminalRecord_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }

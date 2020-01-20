@@ -1,0 +1,121 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:EddiStyling">
+    <SolidColorBrush x:Key="DockPanelBackgroundBrush" Color="#1e2022"/>
+    <SolidColorBrush x:Key="NeutralBackgroundBrush" Color="#2d2d2d"/>
+    <SolidColorBrush x:Key="DarkOrange" Color="#5f4535"/>
+    <SolidColorBrush x:Key="BrightOrange" Color="#dd5500"/>
+    <SolidColorBrush x:Key="White" Color="#eee"/>
+    <SolidColorBrush x:Key="Black" Color="#000"/>
+    <SolidColorBrush x:Key="LightBorder" Color="#aaa"/>
+    <!-- COLOURS -->
+
+    <Style TargetType="{x:Type DataGridColumnHeader}">
+        <Setter Property="Background" Value="{StaticResource DarkOrange}" />
+        <Setter Property="Foreground" Value="{StaticResource White}" />
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="VerticalAlignment" Value="Stretch" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="MinHeight" Value="20" />
+        <Setter Property="Padding" Value="5" />
+        <Setter Property="Width" Value="Auto" />
+    </Style>
+    <Style TargetType="{x:Type DockPanel}">
+        <Setter Property="Background" Value="{StaticResource NeutralBackgroundBrush}" />
+    </Style>
+    <Style TargetType="{x:Type DataGrid}">
+        <Setter Property="Background" Value="{StaticResource NeutralBackgroundBrush}" />
+        <Setter Property="Foreground" Value="{StaticResource White}" />
+        <Setter Property="BorderThickness" Value="0" />
+    </Style>
+    <Style TargetType="{x:Type RichTextBox}">
+        <Setter Property="Foreground" Value="{StaticResource White}" />
+        <Setter Property="Margin" Value="5" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="Padding" Value="10" />
+        <Setter Property="BorderThickness" Value="0" />
+    </Style>
+    <Style TargetType="{x:Type TextBlock}">
+        <Setter Property="Foreground" Value="{StaticResource White}" />
+        <Setter Property="Margin" Value="5" />
+        <Setter Property="FontSize" Value="14" />
+    </Style>
+    <Style TargetType="{x:Type TabControl}">
+        <Setter Property="Background" Value="{StaticResource DockPanelBackgroundBrush}" />
+        <Setter Property="Foreground" Value="{StaticResource White}" />
+        <Setter Property="BorderThickness" Value="0" />
+    </Style>
+    <Style TargetType="{x:Type Hyperlink}">
+        <Setter Property="Foreground" Value="{StaticResource BrightOrange}" />
+    </Style>
+    <Style TargetType="{x:Type Label}">
+        <Setter Property="Foreground" Value="{StaticResource White}" />
+        <Setter Property="Margin" Value="5" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="HorizontalAlignment" Value="Left" />
+        <Setter Property="HorizontalContentAlignment" Value="Left" />
+        <Setter Property="Width" Value="Auto" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+    </Style>
+    <Style TargetType="{x:Type ComboBox}">
+        <Setter Property="Margin" Value="5" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="HorizontalAlignment" Value="Left" />
+        <Setter Property="HorizontalContentAlignment" Value="Left" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="Width" Value="Auto" />
+        <Setter Property="MinWidth" Value="180" />
+        <Setter Property="Padding" Value="5" />
+        <Setter Property="Foreground" Value="{StaticResource Black}" />
+        <Setter Property="Background" Value="{StaticResource White}" />
+    </Style>
+    <Style TargetType="{x:Type Slider}">
+        <Setter Property="Margin" Value="5" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="HorizontalAlignment" Value="Left" />
+        <Setter Property="HorizontalContentAlignment" Value="Left" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="Width" Value="Auto" />
+        <Setter Property="MinWidth" Value="300" />
+    </Style>
+    <Style TargetType="{x:Type TextBox}">
+        <Setter Property="Padding" Value="5" />
+        <Setter Property="HorizontalAlignment" Value="Left" />
+        <Setter Property="HorizontalContentAlignment" Value="Left" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="Margin" Value="5" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="MinWidth" Value="180" />
+        <Setter Property="MinHeight" Value="30" />
+        <Setter Property="Foreground" Value="{StaticResource Black}" />
+        <Setter Property="Background" Value="#fff" />
+    </Style>
+    <Style TargetType="{x:Type RadioButton}">
+        <Setter Property="Foreground" Value="{StaticResource White}" />
+        <Setter Property="Margin" Value="5" />
+    </Style>
+    <Style TargetType="{x:Type Button}">
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="Padding" Value="10" />
+        <Setter Property="Margin" Value="5" />
+        <Setter Property="MinHeight" Value="10" />
+        <Setter Property="Padding" Value="10" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="Background" Value="{StaticResource BrightOrange}" />
+        <Setter Property="Foreground" Value="{StaticResource White}" />
+    </Style>
+    <Style TargetType="{x:Type ComboBoxItem}">
+        <Setter Property="Foreground" Value="{StaticResource Black}" />
+        <Setter Property="Background" Value="#fff" />
+        <Setter Property="BorderThickness" Value="0" />
+    </Style>
+</ResourceDictionary>

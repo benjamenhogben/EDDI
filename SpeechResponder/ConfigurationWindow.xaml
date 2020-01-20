@@ -7,7 +7,14 @@
              xmlns:resx="clr-namespace:EddiSpeechResponder.Properties"
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="800">
-    <DockPanel LastChildFill="True" Background="#FFE5E5E5" Margin="-10">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/EDDIStyling;component/GlobalStyling.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <DockPanel LastChildFill="True">
         <Grid DockPanel.Dock="Top" Margin="0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
@@ -23,8 +30,8 @@
                     <CheckBox x:Name="subtitlesOnlyCheckbox" Margin="0" VerticalAlignment="Center" Checked="subtitlesOnlyEnabled" Unchecked="subtitlesOnlyDisabled"/>
                 </StackPanel>
             </StackPanel>
-            <RichTextBox x:Name="speechResponderHelp" DockPanel.Dock="Left" Grid.Column="1" Width="Auto" Margin="5"  IsReadOnly="True" IsDocumentEnabled="True" Background="#FFE5E5E5" BorderThickness="0">
-                <FlowDocument Background="#FFE5E5E5">
+            <RichTextBox x:Name="speechResponderHelp" DockPanel.Dock="Left" Grid.Column="1" Width="Auto" Margin="5"  IsReadOnly="True" IsDocumentEnabled="True" Background="{StaticResource ResourceKey=DarkOrange}" BorderThickness="0">
+                <FlowDocument>
                     <Paragraph>
                         <TextBlock TextWrapping="Wrap">
                             <Run Text="{x:Static resx:SpeechResponder.speechResponderHelp}"/>
@@ -51,6 +58,14 @@
             <Button Margin="10" HorizontalAlignment="Center" Grid.Column="1" Click="newScriptClicked" Content="{x:Static resx:SpeechResponder.button_new}">
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
+                        <Setter Property="BorderThickness" Value="0" />
+                        <Setter Property="FontSize" Value="14" />
+                        <Setter Property="Padding" Value="10" />
+                        <Setter Property="Margin" Value="5" />
+                        <Setter Property="MinHeight" Value="10" />
+                        <Setter Property="Padding" Value="10" />
+                        <Setter Property="Background" Value="{StaticResource BrightOrange}" />
+                        <Setter Property="Foreground" Value="{StaticResource White}" />
                         <Setter Property="Visibility"  Value="Visible" />
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding Path=Personality.IsEditable}" Value="False">
@@ -63,6 +78,14 @@
             <Button Margin="10" HorizontalAlignment="Center" Grid.Column="2" Click="deletePersonalityClicked" IsEnabled="{Binding Path=Personality.IsEditable}" Content="{x:Static resx:SpeechResponder.button_delete}">
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
+                        <Setter Property="BorderThickness" Value="0" />
+                        <Setter Property="FontSize" Value="14" />
+                        <Setter Property="Padding" Value="10" />
+                        <Setter Property="Margin" Value="5" />
+                        <Setter Property="MinHeight" Value="10" />
+                        <Setter Property="Padding" Value="10" />
+                        <Setter Property="Background" Value="{StaticResource BrightOrange}" />
+                        <Setter Property="Foreground" Value="{StaticResource White}" />
                         <Setter Property="Visibility"  Value="Visible" />
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding Path=Personality.IsEditable}" Value="False">
