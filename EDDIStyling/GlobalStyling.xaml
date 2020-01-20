@@ -8,6 +8,7 @@
     <SolidColorBrush x:Key="White" Color="#eee"/>
     <SolidColorBrush x:Key="Black" Color="#000"/>
     <SolidColorBrush x:Key="LightBorder" Color="#aaa"/>
+    <SolidColorBrush x:Key="BrighterOrange" Color="#f80"/>
     <!-- COLOURS -->
 
     <Style TargetType="{x:Type DataGridColumnHeader}">
@@ -29,6 +30,10 @@
         <Setter Property="Foreground" Value="{StaticResource White}" />
         <Setter Property="BorderThickness" Value="0" />
     </Style>
+    <Style TargetType="{x:Type DataGridRow}">
+        <Setter Property="Foreground" Value="{StaticResource Black}" />
+        <Setter Property="FontSize" Value="14" />
+    </Style>
     <Style TargetType="{x:Type RichTextBox}">
         <Setter Property="Foreground" Value="{StaticResource White}" />
         <Setter Property="Margin" Value="5" />
@@ -37,7 +42,6 @@
         <Setter Property="BorderThickness" Value="0" />
     </Style>
     <Style TargetType="{x:Type TextBlock}">
-        <Setter Property="Foreground" Value="{StaticResource White}" />
         <Setter Property="Margin" Value="5" />
         <Setter Property="FontSize" Value="14" />
     </Style>
@@ -58,19 +62,6 @@
         <Setter Property="Width" Value="Auto" />
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
-    </Style>
-    <Style TargetType="{x:Type ComboBox}">
-        <Setter Property="Margin" Value="5" />
-        <Setter Property="FontSize" Value="14" />
-        <Setter Property="HorizontalAlignment" Value="Left" />
-        <Setter Property="HorizontalContentAlignment" Value="Left" />
-        <Setter Property="VerticalAlignment" Value="Center" />
-        <Setter Property="VerticalContentAlignment" Value="Center" />
-        <Setter Property="Width" Value="Auto" />
-        <Setter Property="MinWidth" Value="180" />
-        <Setter Property="Padding" Value="5" />
-        <Setter Property="Foreground" Value="{StaticResource Black}" />
-        <Setter Property="Background" Value="{StaticResource White}" />
     </Style>
     <Style TargetType="{x:Type Slider}">
         <Setter Property="Margin" Value="5" />
@@ -102,20 +93,42 @@
     <Style TargetType="{x:Type Button}">
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="FontSize" Value="14" />
-        <Setter Property="Padding" Value="10" />
         <Setter Property="Margin" Value="5" />
-        <Setter Property="MinHeight" Value="10" />
-        <Setter Property="Padding" Value="10" />
+        <Setter Property="MinHeight" Value="20" />
         <Setter Property="HorizontalAlignment" Value="Center" />
         <Setter Property="HorizontalContentAlignment" Value="Center" />
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Setter Property="Background" Value="{StaticResource BrightOrange}" />
         <Setter Property="Foreground" Value="{StaticResource White}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Background="{TemplateBinding Background}" Padding="10">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{StaticResource BrighterOrange}"/>
+            </Trigger>
+            <Trigger Property="IsPressed" Value="true">
+                <Setter Property = "Foreground" Value="{StaticResource White}"/>
+            </Trigger>
+        </Style.Triggers>
     </Style>
-    <Style TargetType="{x:Type ComboBoxItem}">
+    <Style TargetType="{x:Type ComboBox}">
+        <Setter Property="Margin" Value="5" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="HorizontalContentAlignment" Value="Left" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="Width" Value="Auto" />
+        <Setter Property="Padding" Value="5" />
         <Setter Property="Foreground" Value="{StaticResource Black}" />
-        <Setter Property="Background" Value="#fff" />
-        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Background" Value="{StaticResource White}" />
     </Style>
 </ResourceDictionary>

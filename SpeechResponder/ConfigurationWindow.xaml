@@ -57,15 +57,7 @@
             <Button Margin="10" HorizontalAlignment="Center" Grid.Column="0" Click="copyPersonalityClicked" Content="{x:Static resx:SpeechResponder.button_copy}"></Button>
             <Button Margin="10" HorizontalAlignment="Center" Grid.Column="1" Click="newScriptClicked" Content="{x:Static resx:SpeechResponder.button_new}">
                 <Button.Style>
-                    <Style TargetType="{x:Type Button}">
-                        <Setter Property="BorderThickness" Value="0" />
-                        <Setter Property="FontSize" Value="14" />
-                        <Setter Property="Padding" Value="10" />
-                        <Setter Property="Margin" Value="5" />
-                        <Setter Property="MinHeight" Value="10" />
-                        <Setter Property="Padding" Value="10" />
-                        <Setter Property="Background" Value="{StaticResource BrightOrange}" />
-                        <Setter Property="Foreground" Value="{StaticResource White}" />
+                    <Style BasedOn="{StaticResource {x:Type Button}}" TargetType="{x:Type Button}">
                         <Setter Property="Visibility"  Value="Visible" />
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding Path=Personality.IsEditable}" Value="False">
@@ -77,15 +69,7 @@
             </Button>
             <Button Margin="10" HorizontalAlignment="Center" Grid.Column="2" Click="deletePersonalityClicked" IsEnabled="{Binding Path=Personality.IsEditable}" Content="{x:Static resx:SpeechResponder.button_delete}">
                 <Button.Style>
-                    <Style TargetType="{x:Type Button}">
-                        <Setter Property="BorderThickness" Value="0" />
-                        <Setter Property="FontSize" Value="14" />
-                        <Setter Property="Padding" Value="10" />
-                        <Setter Property="Margin" Value="5" />
-                        <Setter Property="MinHeight" Value="10" />
-                        <Setter Property="Padding" Value="10" />
-                        <Setter Property="Background" Value="{StaticResource BrightOrange}" />
-                        <Setter Property="Foreground" Value="{StaticResource White}" />
+                    <Style BasedOn="{StaticResource {x:Type Button}}" TargetType="{x:Type Button}">
                         <Setter Property="Visibility"  Value="Visible" />
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding Path=Personality.IsEditable}" Value="False">
@@ -97,7 +81,7 @@
             </Button>
             <TextBlock x:Name="defaultText" VerticalAlignment="Top" HorizontalAlignment="Left" Grid.Column="1" Grid.ColumnSpan="2" TextWrapping="Wrap" Width="Auto" Margin="10, 0" Text="{x:Static resx:SpeechResponder.default_is_read_only}" FontWeight="Bold" FontStyle="Italic" FontSize="13">
                 <TextBlock.Style>
-                    <Style TargetType="{x:Type TextBlock}">
+                    <Style BasedOn="{StaticResource {x:Type TextBlock}}" TargetType="{x:Type TextBlock}">
                         <Setter Property="Visibility"  Value="Visible" />
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding Path=Personality.IsEditable}" Value="True">
@@ -108,7 +92,8 @@
                 </TextBlock.Style>
             </TextBlock>
         </Grid>
-        <DataGrid Margin="0,5" IsReadOnly="True" AutoGenerateColumns="False" x:Name="scriptsData" CanUserAddRows="false" ItemsSource="{Binding Personality.Scripts}" EnableRowVirtualization="False">
+        <DataGrid Margin="0,5" IsReadOnly="True" AutoGenerateColumns="False" x:Name="scriptsData" CanUserAddRows="false" ItemsSource="{Binding Personality.Scripts}" EnableRowVirtualization="False"
+                  ScrollViewer.VerticalScrollBarVisibility="Auto">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="{x:Static resx:SpeechResponder.header_name}" Binding="{Binding Path=Value.Name}" SortDirection="Ascending" />
                 <DataGridTemplateColumn Header="{x:Static resx:SpeechResponder.header_enabled}">
@@ -125,9 +110,10 @@
                         <DataTemplate>
                             <ComboBox SelectedValue="{Binding Path=Value.Priority, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" ItemsSource="{Binding Path=Value.Priorities}" SelectionChanged="eddiScriptsPriorityUpdated">
                                 <ComboBox.Style>
-                                    <Style TargetType="{x:Type ComboBox}">
-                                        <Setter Property="Opacity"  Value="1" />
-                                        <Setter Property="IsEnabled"  Value="{Binding Path=Value.Responder}" />
+                                    <Style BasedOn="{StaticResource {x:Type ComboBox}}" TargetType="{x:Type ComboBox}">
+                                        <Setter Property="Opacity" Value="1" />
+                                        <Setter Property="IsEnabled" Value="{Binding Path=Value.Responder}" />
+                                        <Setter Property="Foreground" Value="{StaticResource ResourceKey=Black}" />
                                         <Style.Triggers>
                                             <DataTrigger Binding="{Binding Path=Value.Responder}" Value="False">
                                                 <Setter Property="Opacity"  Value="0" />
@@ -174,11 +160,11 @@
                                 <Button.IsEnabled>
                                     <MultiBinding Converter="{StaticResource booleanAndConverter }">
                                         <Binding Path="Personality.IsCustom" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}" />
-                                        <Binding Path="Value.IsResettableOrDeletable" /> 
+                                        <Binding Path="Value.IsResettableOrDeletable" />
                                     </MultiBinding>
                                 </Button.IsEnabled>
                                 <Button.Style>
-                                    <Style TargetType="{x:Type Button}">
+                                    <Style BasedOn="{StaticResource {x:Type Button}}" TargetType="{x:Type Button}">
                                         <Setter Property="Content" Value="{x:Static resx:SpeechResponder.delete_script}" />
                                         <Style.Triggers>
                                             <DataTrigger Binding="{Binding Path=Value.IsResettable}" Value="True">

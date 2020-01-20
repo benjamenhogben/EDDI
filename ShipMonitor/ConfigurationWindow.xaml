@@ -64,7 +64,6 @@
                         <Style TargetType="{x:Type TextBlock}">
                             <Setter Property="TextAlignment" Value="Left" />
                             <Setter Property="Margin" Value="5, 0" />
-                            <Setter Property="Foreground" Value="Black"></Setter>
                             <Setter Property="Text" Value="{x:Static resx:ShipMonitor.ship_clean}" />
                             <Style.Triggers>
                                 <DataTrigger Binding="{Binding hot}" Value="True">
@@ -75,14 +74,17 @@
                         </Style>
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
-                <DataGridComboBoxColumn Header="{x:Static resx:ShipMonitor.header_role}" Width="*" SelectedItemBinding="{Binding Path=Role, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" ItemsSource="{Binding Source={x:Static eddi:Role.Sorted}}">
+                <DataGridComboBoxColumn ElementStyle="{StaticResource {x:Type ComboBox}}" Header="{x:Static resx:ShipMonitor.header_role}" MinWidth="100" Width="*"
+                                        SelectedItemBinding="{Binding Path=Role, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                        ItemsSource="{Binding Source={x:Static eddi:Role.Sorted}}">
                     <DataGridComboBoxColumn.EditingElementStyle>
                         <Style TargetType="{x:Type ComboBox}">
+                            <Setter Property="Width" Value="100"/>
                             <EventSetter Event="SelectionChanged" Handler="shipsUpdated" />
                         </Style>
                     </DataGridComboBoxColumn.EditingElementStyle>
                 </DataGridComboBoxColumn>
-                <DataGridTextColumn Header="{x:Static resx:ShipMonitor.header_spoken_name}" Width="*">
+                <DataGridTextColumn Header="{x:Static resx:ShipMonitor.header_spoken_name}" MinWidth="100" Width="*">
                     <DataGridTextColumn.Binding>
                         <Binding Path="phoneticName" NotifyOnTargetUpdated="True" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay" TargetNullValue="{x:Static System:String.Empty}">
                             <Binding.ValidationRules>

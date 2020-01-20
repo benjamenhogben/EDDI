@@ -66,9 +66,8 @@ namespace EddiMissionMonitor
                 string nextSystem = missionMonitor().GetMissionsRoute();
                 Dispatcher?.Invoke(() =>
                 {
-                    updateButton.Foreground = Brushes.Black;
+                    updateButton.Foreground = Brushes.White;
                     updateButton.FontWeight = FontWeights.Regular;
-
                     // If 'next system' found, send to clipboard
                     if (nextSystem != null)
                     {
@@ -105,9 +104,8 @@ namespace EddiMissionMonitor
                 string nextSystem = missionMonitor().UpdateRoute();
                 Dispatcher?.Invoke(() =>
                 {
-                    updateButton.Foreground = Brushes.Black;
+                    updateButton.Foreground = Brushes.White;
                     updateButton.FontWeight = FontWeights.Regular;
-
                     // If 'next system' found, send to clipboard
                     if (nextSystem != null)
                     {

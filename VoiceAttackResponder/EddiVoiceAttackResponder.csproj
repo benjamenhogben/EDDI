@@ -102,6 +102,10 @@
       <Project>{19AB6841-AA93-4D23-BE6D-4CB6883CDF62}</Project>
       <Name>EddiInaraService</Name>
     </ProjectReference>
+    <ProjectReference Include="..\EDDIStyling\EDDIStyling.csproj">
+      <Project>{a3e8f349-d621-4bdd-b70a-b29832323402}</Project>
+      <Name>EDDIStyling</Name>
+    </ProjectReference>
     <ProjectReference Include="..\EDDI\Eddi.csproj">
       <Project>{EC7BA042-A370-447F-8C3E-241358CEBCBB}</Project>
       <Name>Eddi</Name>

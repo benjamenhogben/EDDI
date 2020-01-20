@@ -74,63 +74,57 @@
             <DataGrid.Columns>
                 <DataGridTextColumn Header="{x:Static resx:CrimeMonitor.header_faction}" Width="*" Binding="{Binding Path=faction, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, TargetNullValue={x:Static System:String.Empty}}">
                     <DataGridTextColumn.ElementStyle>
-                        <Style TargetType="TextBlock">
+                        <Style BasedOn="{StaticResource {x:Type TextBlock}}" TargetType="TextBlock">
                             <Setter Property="TextAlignment" Value="Center" />
-                            <Setter Property="Margin" Value="5, 0" />
                         </Style>
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
                 <DataGridTextColumn Header="{x:Static resx:CrimeMonitor.header_system}" Width="120" Binding="{Binding Path=system, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, TargetNullValue={x:Static System:String.Empty}}">
                     <DataGridTextColumn.ElementStyle>
-                        <Style TargetType="TextBlock">
+                        <Style BasedOn="{StaticResource {x:Type TextBlock}}" TargetType="TextBlock">
                             <Setter Property="TextAlignment" Value="Center" />
-                            <Setter Property="Margin" Value="5, 0" />
                         </Style>
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
                 <utility:DataGridNumericColumn Header="{x:Static resx:CrimeMonitor.header_station}" Width="150" IsReadOnly="True" Binding="{Binding Path=station}">
                     <DataGridTextColumn.ElementStyle>
-                        <Style TargetType="TextBlock">
+                        <Style BasedOn="{StaticResource {x:Type TextBlock}}" TargetType="TextBlock">
                             <Setter Property="TextAlignment" Value="Center" />
-                            <Setter Property="Margin" Value="5, 0" />
                         </Style>
                     </DataGridTextColumn.ElementStyle>
                 </utility:DataGridNumericColumn>
                 <utility:DataGridNumericColumn Header="{x:Static resx:CrimeMonitor.header_claims}" Width="80" Binding="{Binding Path=claims, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, TargetNullValue={x:Static System:String.Empty}}">
                     <DataGridTextColumn.ElementStyle>
-                        <Style TargetType="TextBlock">
+                        <Style BasedOn="{StaticResource {x:Type TextBlock}}" TargetType="TextBlock">
                             <Setter Property="TextAlignment" Value="Center" />
-                            <Setter Property="Margin" Value="5, 0" />
                         </Style>
                     </DataGridTextColumn.ElementStyle>
                 </utility:DataGridNumericColumn>
                 <utility:DataGridNumericColumn Header="{x:Static resx:CrimeMonitor.header_fines}" Width="80" Binding="{Binding Path=fines, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, TargetNullValue={x:Static System:String.Empty}}">
                     <DataGridTextColumn.ElementStyle>
-                        <Style TargetType="TextBlock">
+                        <Style BasedOn="{StaticResource {x:Type TextBlock}}" TargetType="TextBlock">
                             <Setter Property="TextAlignment" Value="Center" />
-                            <Setter Property="Margin" Value="5, 0" />
                         </Style>
                     </DataGridTextColumn.ElementStyle>
                 </utility:DataGridNumericColumn>
                 <utility:DataGridNumericColumn Header="{x:Static resx:CrimeMonitor.header_bounties}" Width="80" Binding="{Binding Path=bounties, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, TargetNullValue={x:Static System:String.Empty}}">
                     <DataGridTextColumn.ElementStyle>
-                        <Style TargetType="TextBlock">
+                        <Style BasedOn="{StaticResource {x:Type TextBlock}}" TargetType="TextBlock">
                             <Setter Property="TextAlignment" Value="Center" />
-                            <Setter Property="Margin" Value="5, 0" />
                         </Style>
                     </DataGridTextColumn.ElementStyle>
                 </utility:DataGridNumericColumn>
                 <DataGridTemplateColumn MinWidth="60">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Click="updateRecord" MinWidth="60" HorizontalAlignment="Center" Content="{x:Static resx:CrimeMonitor.update_button}" />
+                            <Button Click="updateRecord" MinWidth="60" Content="{x:Static resx:CrimeMonitor.update_button}" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
                 <DataGridTemplateColumn MinWidth="60">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Click="removeRecord" MinWidth="60" HorizontalAlignment="Center" Content="{x:Static resx:CrimeMonitor.remove_button}" />
+                            <Button Click="removeRecord" MinWidth="60" Content="{x:Static resx:CrimeMonitor.remove_button}" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>

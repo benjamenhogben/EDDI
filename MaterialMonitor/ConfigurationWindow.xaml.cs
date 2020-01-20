@@ -86,7 +86,7 @@ namespace EddiMaterialMonitor
                 string nextSystem = NavigationService.Instance.GetServiceRoute(service, distance);
                 Dispatcher?.Invoke(() =>
                 {
-                    button.Foreground = Brushes.Black;
+                    button.Foreground = Brushes.White;
                     button.FontWeight = FontWeights.Regular;
 
                     // If 'next system' found, send to clipboard
